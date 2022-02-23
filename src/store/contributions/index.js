@@ -10,14 +10,14 @@ const state = {
 };
 const getters = {};
 const actions = {
-  async fetchAllContributions({ commit }) {
+  async fetchAllContributions({ commit }, memberId) {
     commit("setState", {
       changedState: "fetchingAllContributions",
       value: true,
     });
 
-    const res = await getAllContributions();
-    console.log("actionnn", res);
+    const res = await getAllContributions(memberId);
+    console.log("actionnnfetchAll", res.data);
 
     if (res.success) {
       commit("setState", {
@@ -47,14 +47,14 @@ const actions = {
     });
   },
 
-  async fetchContribution({ commit }, id) {
+  async fetchContribution({ commit }) {
     commit("setState", {
       changedState: "fetchingContribution",
       value: true,
     });
 
-    const res = await getContribution(id);
-    console.log("actionnn1234", res.data);
+    const res = await getContribution();
+    console.log("actionnnfetchUnique", res.data);
 
     if (res.success) {
       commit("setState", {

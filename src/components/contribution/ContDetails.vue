@@ -34,11 +34,16 @@
             show-empty
             :busy="loading"
           >
-            <!-- <template #cell(deposits)="data">
+            <template #cell(deposit)="data">
               <div class="d-flex justify-content-center">
-                {{ data.item.contribution_amount }}
+                {{ data.item.type == "deposit" ? data.item.amount : "" }}
               </div>
-            </template> -->
+            </template>
+            <template #cell(redrawal)="data">
+              <div class="d-flex justify-content-center">
+                {{ data.item.type == "redrawal" ? data.item.amount : "" }}
+              </div>
+            </template>
             <template #table-busy>
               <div class="text-center text-primary my-2">
                 <b-spinner class="align-middle"></b-spinner>
@@ -69,9 +74,8 @@ export default {
 
   created() {
     const id = this.$route.params.id;
+    console.log("idddComp", id);
     this.fetchContribution(id);
-    this.contributor =
-      this.contribution.length > 0 ? this.contribution[0].name : "";
   },
   computed: {
     ...mapState({
@@ -100,7 +104,7 @@ export default {
           sortable: false,
         },
         {
-          key: "date",
+          key: "created_At",
           sortable: true,
         },
       ],

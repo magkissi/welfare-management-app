@@ -96,6 +96,7 @@ export default {
   },
   created() {
     this.fetchMemberDetails();
+    console.log("strapii", this.memberDetails);
   },
   data() {
     return {
@@ -106,7 +107,7 @@ export default {
       member: "",
       fields: [
         {
-          key: "membership_ID",
+          key: "memberId",
           sortable: true,
         },
         {
@@ -114,15 +115,15 @@ export default {
           sortable: false,
         },
         {
-          key: "start_date",
+          key: "startDate",
           sortable: true,
         },
         {
-          key: "contribution_amount",
+          key: "contributionAmount",
           sortable: true,
         },
         {
-          key: "deduction_source",
+          key: "deductionSource",
           sortable: true,
         },
         {

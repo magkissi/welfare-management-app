@@ -124,14 +124,14 @@ const routes = [
       },
       {
         path: "/contributions/:id",
-        name: "Contribution",
+        name: "ContDetails",
 
         component: () => import("../components/contribution/ContDetails.vue"),
         meta: {
           pageTitle: "",
           breadcrumb: [
             {
-              text: "contribution",
+              text: "contributionDetails",
               active: true,
             },
           ],

@@ -1,13 +1,16 @@
-import { promisify } from "../../utils/promisify";
-import { membership } from "../../utils/sampleData";
+import axios from "axios";
 
 export const getMembershipDetails = async () => {
   try {
-    const res = await promisify(membership);
-    console.log("mem apiii", res);
+    const res = await axios.get("http://localhost:1337/api/memberships");
+    const mainData = [];
+    const resData = res.data.data;
+    resData.forEach((item) => mainData.push(item.attributes));
+    console.log("apiii", res.data.data);
+    console.log("apiiiineww", mainData);
     return {
       success: true,
-      data: res,
+      data: mainData,
     };
   } catch (error) {
     return {
@@ -19,12 +22,14 @@ export const getMembershipDetails = async () => {
 
 export const postNewMember = async (payload) => {
   try {
-    membership.unshift(payload);
-    const res = await promisify(payload);
-    console.log("apiiii", res);
+    const res = await axios.post(
+      "http://localhost:1337/api/memberships",
+      payload
+    );
+    console.log("apiiii", res.data);
     return {
       success: true,
-      data: res,
+      data: res.data,
     };
   } catch (error) {
     return {

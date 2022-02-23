@@ -48,9 +48,7 @@
                   variant="info"
                   pill
                   size="sm"
-                  @click="
-                    $router.push(`/contributions/${data.item.membership_ID}`)
-                  "
+                  @click="$router.push(`/contributions/${data.item.memberId}`)"
                   >view details</b-button
                 >
               </div>
@@ -84,6 +82,9 @@ export default {
   name: "contTable",
   created() {
     this.fetchAllContributions();
+    this.contributions
+      ? console.log(this.contributions.memberId)
+      : console.log("nothinggg");
   },
   computed: {
     ...mapState({
@@ -104,7 +105,7 @@ export default {
       member: "",
       fields: [
         {
-          key: "membership_ID",
+          key: "memberId",
           sortable: true,
         },
         {
@@ -113,11 +114,11 @@ export default {
         },
 
         {
-          key: "total_contribution",
+          key: "totalContribution",
           sortable: true,
         },
         {
-          key: "total_redrawal",
+          key: "totalRedrawal",
           sortable: false,
         },
         {
@@ -125,7 +126,7 @@ export default {
           sortable: false,
         },
         {
-          key: "deduction_source",
+          key: "deductionSource",
           sortable: true,
         },
 

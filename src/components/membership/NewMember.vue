@@ -216,7 +216,6 @@ export default {
   },
   data() {
     return {
-      generatedId: "",
       email: "",
       firstName: "",
       lastName: "",
@@ -237,21 +236,22 @@ export default {
       console.log("editting");
     },
     submitDetails() {
-      //   const getIdNumbers = this.startDate
-      const getIdLetters = this.firstName.charAt(0) + this.lastName.slice(0, 4);
-      const combineLetters = getIdLetters.toUpperCase();
-      this.generatedId = combineLetters;
       const payload = {
-        membership_ID: this.generatedId,
-        name: this.lastName.toUpperCase() + " " + this.firstName.toUpperCase(),
-        contribution_amount: this.amount,
-        start_date: this.startDate,
-        deduction_source: this.source,
-        department: this.department,
-        contact: this.contact,
-        email: this.email,
-        successor_name: this.successorName,
-        successor_contct: this.successorContact,
+        data: {
+          attributes: {
+            memberId: "",
+            name:
+              this.lastName.toUpperCase() + " " + this.firstName.toUpperCase(),
+            contributionAmount: this.amount,
+            startDate: this.startDate,
+            deductionSource: this.source,
+            department: this.department,
+            memberContact: this.contact,
+            emailAddress: this.email,
+            nextOfKinName: this.successorName,
+            nextOfKinContct: this.successorContact,
+          },
+        },
       };
       this.addNewMember(payload);
       this.firstName = "";

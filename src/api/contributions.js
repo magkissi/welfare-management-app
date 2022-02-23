@@ -1,39 +1,17 @@
-import { contributions } from "../../utils/sampleData";
-import { promisify } from "../../utils/promisify";
+import axios from "axios";
+import qs from "qs";
 
 export const getAllContributions = async () => {
   try {
-    const uniqueIds = [
-      ...new Set(contributions.map((item) => item.membership_ID)),
-    ];
-    let uniqueData = [];
-
-    uniqueIds.forEach((item) => {
-      uniqueData.push({
-        membership_ID: item,
-        name: "Benjamin Kuma",
-        total_contribution: 10000,
-        total_redrawal: 2000,
-        balance: 5000,
-      });
-    });
-    //let amount = [];
-    // const amount = uniqueData.forEach((item) => {
-    //   contributions.forEach((user) => {
-    //     if (user.membership_ID == item.membership_ID) {
-    //       return user;
-    //     }
-    //   });
-    // });
-    // console.log("amlunttt", amount);
-
-    console.log("newwww", uniqueData);
-    console.log("apiii", uniqueIds);
-    const res = await promisify(uniqueData);
-
+    let mainData = [];
+    const res = await axios.get("http://localhost:1337/api/contributions");
+    console.log("newwww", res.data.data);
+    const resData = res.data.data;
+    resData.forEach((item) => mainData.push(item.attributes));
+    console.log("mainnn", mainData);
     return {
       success: true,
-      data: res,
+      data: mainData,
     };
   } catch (error) {
     return {
@@ -43,22 +21,26 @@ export const getAllContributions = async () => {
   }
 };
 
-export const getContribution = async (id) => {
+export const getContribution = async (memberIdentity) => {
+  console.log("api iddd", memberIdentity);
   try {
-    let fitered = [];
-
-    contributions.forEach((item) => {
-      console.log("fiteridd", item.membership_ID);
-      if (item.membership_ID == id) {
-        return fitered.push(item);
-      }
+    const query = qs.stringify({
+      filters: {
+        memberId: {
+          $eq: memberIdentity,
+        },
+      },
     });
+    console.log("eq", query);
+    let mainData = [];
+    const res = await axios.get(`http://localhost:1337/api/actions?${query}`);
 
-    const res = await promisify(fitered);
-
+    const resData = res.data.data;
+    resData.forEach((item) => mainData.push(item.attributes));
+    console.log("mainn", mainData);
     return {
       success: true,
-      data: res,
+      data: mainData,
     };
   } catch (error) {
     return {
