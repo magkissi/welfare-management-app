@@ -82,9 +82,6 @@ export default {
   name: "contTable",
   created() {
     this.fetchAllContributions();
-    this.contributions
-      ? console.log(this.contributions.memberId)
-      : console.log("nothinggg");
   },
   computed: {
     ...mapState({

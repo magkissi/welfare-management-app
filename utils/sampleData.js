@@ -1,23 +1,23 @@
 export const dashboardInfo = [
   {
     title: "Total contribution since start of scheme",
-    deposit: "GHS 100,000.00",
+    deposit: 100000,
   },
   {
     title: "Total contribution since start of scheme",
-    deposit: "GHS 100,000.00",
+    deposit: 100000,
   },
   {
     title: "Total contribution since start of scheme",
-    deposit: "GHS 100,000.00",
+    deposit: 100000,
   },
   {
     title: "Total contribution since start of scheme",
-    deposit: "GHS 100,000.00",
+    deposit: 100000,
   },
   {
     title: "Total contribution since start of scheme",
-    deposit: "GHS 100,000.00",
+    deposit: 100000,
   },
 ];
 

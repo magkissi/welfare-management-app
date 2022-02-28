@@ -1,13 +1,17 @@
-import { promisify } from "../../utils/promisify";
-import { dashboardInfo } from "../../utils/sampleData";
+// import { promisify } from "../../utils/promisify";
+// import { dashboardInfo } from "../../utils/sampleData";
+import axios from "axios";
 
 export const getDashboardInfo = async () => {
   try {
-    const res = await promisify(dashboardInfo);
-    console.log("apiiii", res);
+    let mainData = [];
+    const res = await axios.get("http://localhost:1337/api/dashboards");
+    const resData = res.data.data;
+    resData.forEach((item) => mainData.push(item.attributes));
+    console.log("apiiii", resData);
     return {
       success: true,
-      data: res,
+      data: mainData,
     };
   } catch (error) {
     return {

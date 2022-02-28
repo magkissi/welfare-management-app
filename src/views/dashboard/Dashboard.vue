@@ -3,14 +3,24 @@
     <div class="text-center text-primary my-2" v-if="loading">
       <b-spinner class="align-middle"></b-spinner>
     </div>
-    <div class="row">
-      <div
-        class="col-5 mt-5 overflow-wrap"
-        v-for="info in dashboardInfo"
-        :key="info.title"
-      >
-        <DashboardCard :title="info.title" :amount="info.amount" />
-      </div>
+    <div class="">
+      <DashboardCard
+        :title1="dashboardInfo[0].title"
+        :amount1="dashboardInfo[0].amount"
+        :title2="dashboardInfo[1].title"
+        :amount2="dashboardInfo[1].amount"
+        :flip="false"
+      />
+    </div>
+    <div class="">
+      <DashboardCard
+        :title1="dashboardInfo[2].title"
+        :amount1="dashboardInfo[2].amount"
+        :title2="dashboardInfo[3].title"
+        :amount2="dashboardInfo[3].amount"
+        :flip="true"
+        :first="false"
+      />
     </div>
   </div>
 </template>
