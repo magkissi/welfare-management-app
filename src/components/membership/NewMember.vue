@@ -141,8 +141,8 @@
                 <b-form-input
                   id="input-7"
                   v-model="startDate"
-                  type="text"
-                  placeholder="Enter only month and year eg. 02-2022"
+                  type="date"
+                  placeholder="Enter date in the order year/month/day eg. 2022-03-13"
                   required
                 >
                 </b-form-input>
@@ -237,21 +237,16 @@ export default {
     },
     submitDetails() {
       const payload = {
-        data: {
-          attributes: {
-            memberId: "",
-            name:
-              this.lastName.toUpperCase() + " " + this.firstName.toUpperCase(),
-            contributionAmount: this.amount,
-            startDate: this.startDate,
-            deductionSource: this.source,
-            department: this.department,
-            memberContact: this.contact,
-            emailAddress: this.email,
-            nextOfKinName: this.successorName,
-            nextOfKinContct: this.successorContact,
-          },
-        },
+        firstName: this.firstName,
+        lastName: this.lastName,
+        contributionAmount: this.amount,
+        deductionStartDate: this.startDate,
+        deductionSource: this.source,
+        department: this.department,
+        contact: this.contact,
+        email: this.email,
+        kinName: this.successorName,
+        kinContact: this.successorContact,
       };
       this.addNewMember(payload);
       this.firstName = "";

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <b-navbar
-      toggleable="lg"
-      type="dark"
-      variant="info"
-      class="wrapper rounded"
-    >
+    <b-navbar toggleable="lg" type="dark" variant="info" class="wrapper">
       <b-navbar-brand href="/dashboard">Home</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -31,8 +26,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* .wrapper {
-  margin-left: 250px;
-} */
-</style>
+<style scoped></style>

@@ -8,7 +8,11 @@
     >
       <div class="title text-white">MILIFE WELFARE SCHEME</div>
       <div class="mt-3">
-        <b-button @click="signIn" variant="success">Sign In</b-button>
+        <b-button @click="signUp" variant="success">Sign Up</b-button>
+      </div>
+      <div class="mt-5 d-flex justify-content-center align-items-center">
+        <div class="text-white mr-1">Already have an account?</div>
+        <div @click="signIn" class="sign_in"><u>Sign In</u></div>
       </div>
     </div>
   </div>
@@ -19,6 +23,9 @@ export default {
   name: "Hero",
   components: {},
   methods: {
+    signUp() {
+      this.$router.push(`/sign-up`);
+    },
     signIn() {
       this.$router.push(`/login`);
     },
@@ -50,5 +57,11 @@ img {
   border-bottom: 1px solid white;
   font-size: 50px;
   font-weight: 700;
+}
+.sign_in {
+  font-size: 25px;
+  color: rgb(25, 151, 109);
+  font-weight: 800;
+  cursor: pointer;
 }
 </style>

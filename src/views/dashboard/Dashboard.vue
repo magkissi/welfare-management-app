@@ -3,7 +3,8 @@
     <div class="text-center text-primary my-2" v-if="loading">
       <b-spinner class="align-middle"></b-spinner>
     </div>
-    <div class="">
+    <p>welfare dashboard</p>
+    <!-- <div class="">
       <DashboardCard
         :title1="dashboardInfo[0].title"
         :amount1="dashboardInfo[0].amount"
@@ -21,22 +22,20 @@
         :flip="true"
         :first="false"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
 
-import DashboardCard from "./DashboardCard.vue";
+//import DashboardCard from "./DashboardCard.vue";
 
 export default {
   name: "Dashboard",
-  components: {
-    DashboardCard,
-  },
+  components: {},
   created() {
     this.fetchDashboardInfo();
-    console.log("info", this.dashboardInfo);
+    //console.log("info", this.dashboardInfo);
   },
   computed: {
     ...mapState({

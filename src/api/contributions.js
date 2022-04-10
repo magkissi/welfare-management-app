@@ -1,17 +1,17 @@
-import axios from "axios";
-import qs from "qs";
+import axios from "../../utils/axios";
+// import qs from "qs";
 
+//for summary
 export const getAllContributions = async () => {
   try {
-    let mainData = [];
-    const res = await axios.get("http://localhost:1337/api/contributions");
-    console.log("newwww", res.data.data);
-    const resData = res.data.data;
-    resData.forEach((item) => mainData.push(item.attributes));
-    console.log("mainnn", mainData);
+    const res = await axios.get(
+      "https://welfare-api-staging.herokuapp.com/contributions"
+    );
+
+    console.log("apiiGetAlll", res.data.data);
     return {
       success: true,
-      data: mainData,
+      data: res.data.data,
     };
   } catch (error) {
     return {
@@ -21,26 +21,37 @@ export const getAllContributions = async () => {
   }
 };
 
+export const addDepositToCont = async (payload) => {
+  try {
+    const res = await axios.post(
+      "https://welfare-api-staging.herokuapp.com/contributions",
+      payload
+    );
+    console.log("apiiiiAddCont---", res.data.mainData);
+    return {
+      success: true,
+      data: res.data.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: error,
+    };
+  }
+};
+
+//for statement
 export const getContribution = async (memberIdentity) => {
   console.log("api iddd", memberIdentity);
   try {
-    const query = qs.stringify({
-      filters: {
-        memberId: {
-          $eq: memberIdentity,
-        },
-      },
-    });
-    console.log("eq", query);
-    let mainData = [];
-    const res = await axios.get(`http://localhost:1337/api/actions?${query}`);
-
-    const resData = res.data.data;
-    resData.forEach((item) => mainData.push(item.attributes));
-    console.log("mainn", mainData);
+    const res = await axios.get(
+      "https://welfare-api-staging.herokuapp.com/contributions",
+      memberIdentity
+    );
+    console.log("getSpecific", res.data.data);
     return {
       success: true,
-      data: mainData,
+      data: res.data.data,
     };
   } catch (error) {
     return {

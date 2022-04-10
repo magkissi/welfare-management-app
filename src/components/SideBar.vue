@@ -2,8 +2,7 @@
   <div class="row pl-3 mt-5">
     <div class="col">
       <div class="sidebar_items row mt-5">
-        <router-link to="/dashboard"
-          ><div class="col">+ Dashboard</div></router-link
+        <div class="col">+ Dashboard</div>
         >
       </div>
       <div class="sidebar_items row mt-3">

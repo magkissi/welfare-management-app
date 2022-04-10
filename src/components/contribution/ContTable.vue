@@ -82,10 +82,12 @@ export default {
   name: "contTable",
   created() {
     this.fetchAllContributions();
+    // this.fetchUpdatedContribution();
   },
   computed: {
     ...mapState({
       contributions: (state) => state.contributions.allContributions,
+      updatedContribution: (state) => state.contributions.updatedContribution,
       loading: (state) => state.contributions.fetchingAllContributions,
     }),
     totalRecords() {
@@ -95,7 +97,7 @@ export default {
 
   data() {
     return {
-      perPageLimit: 10,
+      perPageLimit: 20,
       limit: [10, 15, 20, 25],
 
       currentPage: null,
@@ -106,7 +108,7 @@ export default {
           sortable: true,
         },
         {
-          key: "name",
+          key: "amount",
           sortable: false,
         },
 
@@ -137,6 +139,7 @@ export default {
   methods: {
     ...mapActions({
       fetchAllContributions: "contributions/fetchAllContributions",
+      fetchUpdatedContribution: "contributions/fetchUpdatedContribution",
     }),
     deleteMember() {},
     addNewMember() {

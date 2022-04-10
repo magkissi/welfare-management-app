@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="sidebar col-2 bg-info">
-        <SideBar />
+  <div class="row main-wrapper">
+    <div class="sidebar col-2 bg-info">
+      <SideBar />
+    </div>
+    <div class="col ml-2 mr-2">
+      <div class="row nav-wrapper">
+        <div class="col"><NavBar /></div>
       </div>
-      <div class="col ml-2 mr-2 mt-4">
-        <div class="row">
-          <div class="col"><NavBar /></div>
-        </div>
-        <div class="row">
-          <div class="col mt-4"><router-view></router-view></div>
-        </div>
+      <div class="row content-wrapper">
+        <div class="col"><router-view></router-view></div>
       </div>
     </div>
   </div>
@@ -30,5 +28,26 @@ export default {
 <style scoped>
 .sidebar {
   height: 100vh;
+
+  position: fixed;
+
+  left: 0;
+  z-index: 10;
+}
+.main-wrapper {
+  position: relative;
+  width: 100%;
+}
+.nav-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+}
+.content-wrapper {
+  position: relative;
+  margin-left: 250px;
+  margin-top: 100px;
 }
 </style>

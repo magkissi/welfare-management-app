@@ -1,6 +1,17 @@
 import { getDashboardInfo } from "./dashboard";
-import { getMembershipDetails, postNewMember } from "./membership";
-import { getAllContributions, getContribution } from "./contributions";
+import {
+  getMembershipDetails,
+  getMemberDetails,
+  postNewMember,
+  deleteMember,
+} from "./membership";
+import {
+  getAllContributions,
+  getContribution,
+  addDepositToCont,
+} from "./contributions";
+import { postDepositAmount } from "./actions";
+import { login, register, getUsers, getUser } from "./auth";
 
 export {
   getDashboardInfo,
@@ -8,4 +19,12 @@ export {
   postNewMember,
   getAllContributions,
   getContribution,
+  postDepositAmount,
+  addDepositToCont,
+  login,
+  register,
+  deleteMember,
+  getUsers,
+  getMemberDetails,
+  getUser,
 };

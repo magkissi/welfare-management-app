@@ -1,12 +1,23 @@
-import { getMembershipDetails, postNewMember } from "../../api";
+import {
+  getMembershipDetails,
+  postNewMember,
+  deleteMember,
+  getMemberDetails,
+} from "../../api";
 
 const state = {
   membershipDetails: null,
   fetchingMembershipDetails: false,
   fetchMembershipDetailsError: {},
+  memberDetails: null,
+  fetchingMemberDetails: false,
+  fetchMemberDetailsError: {},
   newMember: null,
-  fetchingNewMember: false,
-  fetchNewMemberError: {},
+  addingNewMember: false,
+  addNewMemberError: {},
+  deletedMembershipDetails: null,
+  deletingMembershipDetails: false,
+  deleteMembershipDetailsError: {},
 };
 const getters = {};
 const actions = {
@@ -46,9 +57,45 @@ const actions = {
     });
   },
 
+  async fetchMemberDetails({ commit }, id) {
+    commit("setState", {
+      changedState: "fetchingMemberDetails",
+      value: true,
+    });
+
+    const res = await getMemberDetails(id);
+    console.log("actionnn", res.data);
+
+    if (res.success) {
+      commit("setState", {
+        changedState: "memberDetails",
+        value: res.data,
+      });
+      commit("setState", {
+        changedState: "fetchMemberDetailsError",
+        value: {
+          status: false,
+          data: null,
+        },
+      });
+    } else {
+      commit("setState", {
+        changedState: "fetchMemberDetailsError",
+        value: {
+          status: true,
+          data: res,
+        },
+      });
+    }
+    commit("setState", {
+      changedState: "fetchingMemberDetails",
+      value: false,
+    });
+  },
+
   async addNewMember({ commit }, payload) {
     commit("setState", {
-      changedState: "fetchingNewMember",
+      changedState: "addingNewMember",
       value: true,
     });
     const res = await postNewMember(payload);
@@ -60,7 +107,7 @@ const actions = {
         value: res.data,
       });
       commit("setState", {
-        changedState: "fetchingNewMemberError",
+        changedState: "addNewMemberError",
         value: {
           status: false,
           data: null,
@@ -68,7 +115,7 @@ const actions = {
       });
     } else {
       commit("setState", {
-        changedState: "fetchingNewMemberError",
+        changedState: "addNewMemberError",
         value: {
           status: true,
           data: res,
@@ -76,7 +123,43 @@ const actions = {
       });
     }
     commit("setState", {
-      changedState: "fetchingNewMember",
+      changedState: "addingNewMember",
+      value: false,
+    });
+  },
+
+  async removeMember({ commit }, id) {
+    commit("setState", {
+      changedState: "deletingMembershipDetails",
+      value: true,
+    });
+
+    const res = await deleteMember(id);
+    console.log("actionnnDeleteID", res.data);
+
+    if (res.success) {
+      commit("setState", {
+        changedState: "deletedMembershipDetails",
+        value: res.data,
+      });
+      commit("setState", {
+        changedState: "deleteMembershipDetailsError",
+        value: {
+          status: false,
+          data: null,
+        },
+      });
+    } else {
+      commit("setState", {
+        changedState: "deleteMembershipDetailsError",
+        value: {
+          status: true,
+          data: res,
+        },
+      });
+    }
+    commit("setState", {
+      changedState: "deletingMembershipDetails",
       value: false,
     });
   },

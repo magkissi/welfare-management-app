@@ -1,4 +1,8 @@
-import { getAllContributions, getContribution } from "../../api";
+import {
+  getAllContributions,
+  getContribution,
+  addDepositToCont,
+} from "../../api";
 
 const state = {
   allContributions: null,
@@ -7,6 +11,9 @@ const state = {
   contribution: null,
   fetchingContribution: false,
   fetchContError: {},
+  addedDepositToCont: null,
+  addingDepositToCont: false,
+  fetchAddedDepositToContError: {},
 };
 const getters = {};
 const actions = {
@@ -81,6 +88,43 @@ const actions = {
     }
     commit("setState", {
       changedState: "fetchingContribution",
+      value: false,
+    });
+  },
+
+  async addDepositToContribution({ commit }, payload) {
+    commit("setState", {
+      changedState: "addingDepositToCont",
+      value: true,
+    });
+
+    const res = await addDepositToCont(payload);
+    console.log("actionnnupdate---", res.data);
+
+    if (res.success) {
+      commit("setState", {
+        changedState: "addedDepositToCont",
+        value: res.data,
+      });
+
+      commit("setState", {
+        changedState: "fetchAddedDepositToContError",
+        value: {
+          status: false,
+          data: null,
+        },
+      });
+    } else {
+      commit("setState", {
+        changedState: "fetchAddedDepositToContError",
+        value: {
+          status: true,
+          data: res,
+        },
+      });
+    }
+    commit("setState", {
+      changedState: "addingDepositToCont",
       value: false,
     });
   },

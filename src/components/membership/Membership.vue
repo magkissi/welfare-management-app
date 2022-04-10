@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card title="" class="shadow border border-white">
+    <b-card title="" class="shadow border border-white wrapper">
       <div class="row">
         <div class="col">
           <div class="d-flex align-items-center">
@@ -18,12 +18,14 @@
           <div class="d-flex align-items-center">
             <div>
               <b-form-input
-                v-model="member"
+                v-model="memberId"
                 placeholder="membership ID"
               ></b-form-input>
             </div>
             <div class="ml-1">
-              <b-button variant="outline-info">search</b-button>
+              <b-button @click="showMemberDetails" variant="outline-info"
+                >search</b-button
+              >
             </div>
           </div>
         </div>
@@ -34,26 +36,28 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col overflow-auto">
+        <div class="col">
           <b-table
             id="my-table"
             :per-page="perPageLimit"
             :current-page="currentPage"
-            :items="memberDetails"
+            :items="membersDetails"
             :fields="fields"
             class="bg-white"
             hover
             show-empty
             :busy="loading"
+            sticky-header="true"
+            :filter="memberId"
           >
-            <template #cell(action)>
+            <template #cell(action)="data">
               <div class="d-flex justify-content-center action">
                 <b-button
                   type="submit"
                   variant="danger"
                   pill
                   size="sm"
-                  @click="deleteMember"
+                  @click="deleteMember(data.item._id)"
                   >delete</b-button
                 >
               </div>
@@ -85,37 +89,45 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Membership",
+
+  created() {
+    this.fetchMembersDetails();
+  },
   computed: {
     ...mapState({
-      memberDetails: (state) => state.membership.membershipDetails,
+      membersDetails: (state) => state.membership.membershipDetails,
+      memberDetails: (state) => state.membership.memberDetails,
       loading: (state) => state.membership.fetchingMembershipDetails,
+      deletedMember: (state) => state.membership.deletedMembershipDetails,
+      deletingMember: (state) => state.membership.deletingMembershipDetails,
     }),
     totalRecords() {
-      return this.memberDetails?.length;
+      return this.membersDetails?.length;
     },
   },
-  created() {
-    this.fetchMemberDetails();
-    console.log("strapii", this.memberDetails);
-  },
+
   data() {
     return {
-      perPageLimit: 5,
+      perPageLimit: "15",
       limit: [10, 15, 20, 25],
 
-      currentPage: null,
-      member: "",
+      currentPage: 1,
+      memberId: "",
       fields: [
         {
           key: "memberId",
           sortable: true,
         },
         {
-          key: "name",
+          key: "lastName",
           sortable: false,
         },
         {
-          key: "startDate",
+          key: "firstName",
+          sortable: false,
+        },
+        {
+          key: "deductionStartDate",
           sortable: true,
         },
         {
@@ -140,12 +152,30 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchMemberDetails: "membership/fetchMembershipDetails",
+      fetchMembersDetails: "membership/fetchMembershipDetails",
+      deleteMemberDetails: "membership/removeMember",
+      fetchMemberDetails: "membership/fetchMemberDetails",
     }),
-    deleteMember() {},
+    deleteMember(id) {
+      console.log("comp--id", id);
+      this.deleteMemberDetails(id);
+      this.fetchMembersDetails();
+    },
     addNewMember() {
       this.$router.push(`/membership/new-member`);
+    },
+    showMemberDetails(filteredItems) {
+      this.fetchMemberDetails(this.memberId);
+
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
     },
   },
 };
 </script>
+<style scoped>
+.wrapper {
+  height: 100vh;
+}
+</style>

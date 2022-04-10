@@ -24,6 +24,15 @@ const routes = [
     },
   },
   {
+    path: "/sign-up",
+    name: "Sign Up",
+
+    component: () => import("../../src/components/SignUp.vue"),
+    meta: {
+      layout: "public",
+    },
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
 
